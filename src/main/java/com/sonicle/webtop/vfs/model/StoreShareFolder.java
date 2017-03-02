@@ -35,21 +35,21 @@ package com.sonicle.webtop.vfs.model;
 import com.sonicle.webtop.core.bol.model.ShareFolder;
 import com.sonicle.webtop.core.bol.model.SharePermsFolder;
 import com.sonicle.webtop.core.bol.model.SharePermsElements;
-import com.sonicle.webtop.core.sdk.UserProfile;
+import com.sonicle.webtop.core.sdk.UserProfileId;
 
 /**
  *
  * @author malbinola
  */
 public class StoreShareFolder extends ShareFolder {
-	protected final UserProfile.Id ownerProfileId;
+	protected final UserProfileId ownerProfileId;
 	
-	public StoreShareFolder(String shareId, UserProfile.Id ownerProfileId, SharePermsFolder perms, SharePermsElements elsPerms, Store store) {
+	public StoreShareFolder(String shareId, UserProfileId ownerProfileId, SharePermsFolder perms, SharePermsElements elsPerms, Store store) {
 		super(shareId, perms, elsPerms, store);
 		this.ownerProfileId = ownerProfileId;
 	}
 	
-	public UserProfile.Id getOwnerProfileId() {
+	public UserProfileId getOwnerProfileId() {
 		return ownerProfileId;
 	}
 

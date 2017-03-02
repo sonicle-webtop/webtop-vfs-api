@@ -33,7 +33,7 @@
 package com.sonicle.webtop.vfs.model;
 
 import com.sonicle.commons.PathUtils;
-import com.sonicle.webtop.core.sdk.UserProfile;
+import com.sonicle.webtop.core.sdk.UserProfileId;
 import com.sonicle.webtop.core.sdk.WTException;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -156,11 +156,11 @@ public class SharingLink {
 		return now.isAfter(expiresOn.toDateTime(DateTimeZone.UTC));
 	}
 	
-	public UserProfile.Id getProfileId() {
-		return new UserProfile.Id(getDomainId(), getUserId());
+	public UserProfileId getProfileId() {
+		return new UserProfileId(getDomainId(), getUserId());
 	}
 	
-	public void setProfileId(UserProfile.Id pid) {
+	public void setProfileId(UserProfileId pid) {
 		setDomainId(pid.getDomain());
 		setUserId(pid.getUser());
 	}
