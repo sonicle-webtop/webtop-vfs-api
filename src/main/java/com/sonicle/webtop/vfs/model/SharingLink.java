@@ -153,7 +153,8 @@ public class SharingLink {
 	
 	public boolean isExpired(DateTime now) {
 		if(expiresOn == null) return false;
-		return now.isAfter(expiresOn.toDateTime(DateTimeZone.UTC));
+		DateTime expires = expiresOn.toDateTime(DateTimeZone.UTC);
+		return now.isAfter(expires) || now.isEqual(expires);
 	}
 	
 	public UserProfileId getProfileId() {

@@ -55,6 +55,7 @@ public interface IVfsManager {
 	public List<StoreShareRoot> listIncomingStoreRoots() throws WTException;
 	public HashMap<Integer, StoreShareFolder> listIncomingStoreFolders(String rootShareId) throws WTException;
 	public List<Store> listStores() throws WTException;
+	public Integer getMyDocumentsStoreId() throws WTException;
 	public Store getStore(int storeId) throws WTException;
 	public Store addStore(Store item) throws WTException;
 	public Store addBuiltInStoreMyDocuments() throws WTException;
