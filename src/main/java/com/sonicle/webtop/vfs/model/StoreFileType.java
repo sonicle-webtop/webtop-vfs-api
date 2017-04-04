@@ -38,15 +38,9 @@ package com.sonicle.webtop.vfs.model;
  */
 public enum StoreFileType {
 	FILE("file"), FOLDER("folder"), FILE_OR_FOLDER("fileOrFolder");
-		
-	private final String name;
-
-	private StoreFileType(String name) {
-		this.name = name;
-	}
 	
+	private final String value;
+	private StoreFileType(String value) { this.value = value; }
 	@Override
-	public String toString() {
-		return name;
-	}
+	public String toString() { return value; }
 }
