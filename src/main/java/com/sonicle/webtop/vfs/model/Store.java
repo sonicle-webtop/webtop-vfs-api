@@ -144,4 +144,16 @@ public class Store {
 		String[] tokens = StringUtils.split(accountEmail, "@");
 		return Store.buildURI("googledrive", tokens[1], null, tokens[0], accessToken, null);
 	}
+	
+	public static URI buildNextcloudURI(String scheme, String host, Integer port, String username, String password, String path) throws URISyntaxException {
+		return new VfsURI.Builder()
+				.scheme(scheme)
+				.host(host)
+				.port(port)
+				.username(username)
+				.password(password)
+				.path(path)
+				.build();
+	}
+	
 }
