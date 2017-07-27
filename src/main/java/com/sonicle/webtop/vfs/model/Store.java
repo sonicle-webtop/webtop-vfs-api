@@ -53,6 +53,7 @@ public class Store {
 	private String name;
 	private URI uri;
 	private String parameters;
+	private String provider;
 	
 	public Store() {}
 
@@ -112,6 +113,14 @@ public class Store {
 		this.parameters = parameters;
 	}
 	
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+	
 	public UserProfileId getProfileId() {
 		return new UserProfileId(getDomainId(), getUserId());
 	}
@@ -122,30 +131,6 @@ public class Store {
 	}
 	
 	public static URI buildURI(String scheme, String host, Integer port, String username, String password, String path) throws URISyntaxException {
-		return new VfsURI.Builder()
-				.scheme(scheme)
-				.host(host)
-				.port(port)
-				.username(username)
-				.password(password)
-				.path(path)
-				.build();
-	}
-	
-	public static URI buildFileURI(String path) throws URISyntaxException {
-		return Store.buildURI("file", null, null, null, null, path);
-	}
-	
-	public static URI buildDropboxURI(String accountId, String accessToken) throws URISyntaxException {
-		return Store.buildURI("dropbox", "dropbox.com", null, accountId, accessToken, null);
-	}
-	
-	public static URI buildGoogleDriveURI(String accountEmail, String accessToken) throws URISyntaxException {
-		String[] tokens = StringUtils.split(accountEmail, "@");
-		return Store.buildURI("googledrive", tokens[1], null, tokens[0], accessToken, null);
-	}
-	
-	public static URI buildNextcloudURI(String scheme, String host, Integer port, String username, String password, String path) throws URISyntaxException {
 		return new VfsURI.Builder()
 				.scheme(scheme)
 				.host(host)
