@@ -36,7 +36,6 @@ import com.sonicle.vfs2.VfsURI;
 import com.sonicle.webtop.core.sdk.UserProfileId;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -46,6 +45,16 @@ public class Store {
 	public static final Short BUILTIN_NO = 0;
 	public static final Short BUILTIN_DOMAINIMAGES = 98;
 	public static final Short BUILTIN_MYDOCUMENTS = 100;
+	public static final String PROVIDER_MYDOCUMENTS = "mydocs";
+	public static final String PROVIDER_DOMAINIMAGES = "images";
+	public static final String PROVIDER_FTP = "ftp";
+	public static final String PROVIDER_DROPBOX = "dropbox";
+	public static final String PROVIDER_GOOGLEDRIVE = "googledrive";
+	public static final String PROVIDER_FILE = "file";
+	public static final String PROVIDER_SMB = "smb";
+	public static final String PROVIDER_WEBDAV = "webdav";
+	public static final String PROVIDER_NEXTCLOUD = "nextcloud";
+	
 	private Integer storeId;
 	private String domainId;
 	private String userId;
