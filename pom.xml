@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
 	<name>webtop-vfs-api</name>
 	
-   <parent>
+	<parent>
 		<groupId>com.sonicle.webtop</groupId>
 		<artifactId>webtop-superpom-service-api</artifactId>
 		<version>1</version>
