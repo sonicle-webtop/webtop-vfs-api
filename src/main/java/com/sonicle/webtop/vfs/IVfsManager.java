@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemException;
 
@@ -77,4 +78,6 @@ public interface IVfsManager {
 	public SharingLink addUploadLink(SharingLink link) throws WTException;
 	public void updateSharingLink(SharingLink link) throws WTException;
 	public void deleteSharingLink(String linkId) throws WTException;
+	public String[] getSharingLinkPublicURLs(SharingLink link);
+	public String getSharingLinkEmbedCode(SharingLink link, Locale locale, String dateFormat);
 }

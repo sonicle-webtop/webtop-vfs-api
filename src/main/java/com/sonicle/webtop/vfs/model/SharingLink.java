@@ -32,6 +32,7 @@
  */
 package com.sonicle.webtop.vfs.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.sonicle.commons.PathUtils;
 import com.sonicle.webtop.core.sdk.UserProfileId;
 import com.sonicle.webtop.core.sdk.WTException;
@@ -44,22 +45,18 @@ import org.joda.time.DateTimeZone;
  * @author malbinola
  */
 public class SharingLink {
-	public static final String TYPE_DOWNLOAD = "D";
-	public static final String TYPE_UPLOAD = "U";
-	public static final String AUTH_MODE_NONE = "N";
-	public static final String AUTH_MODE_PASSWORD = "P";
-	
-	protected String linkId;
-	protected String domainId;
-	protected String userId;
-	private String type;
-	protected Integer storeId;
-	protected String filePath;
-	protected String fileHash;
-	protected DateTime createdOn;
-	protected DateTime expiresOn;
-	protected String authMode;
-	protected String password;
+	private String linkId;
+	private String domainId;
+	private String userId;
+	private LinkType linkType;
+	private Integer storeId;
+	private String filePath;
+	private String fileHash;
+	private DateTime createdOn;
+	private DateTime expiresOn;
+	private AuthMode authMode;
+	private String password;
+	private Boolean notify;
 	
 	public SharingLink() {}
 	
@@ -87,12 +84,12 @@ public class SharingLink {
 		this.userId = userId;
 	}
 	
-	public String getType() {
-		return type;
+	public LinkType getLinkType() {
+		return linkType;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setLinkType(LinkType linkType) {
+		this.linkType = linkType;
 	}
 	
 	public Integer getStoreId() {
@@ -135,11 +132,11 @@ public class SharingLink {
 		this.expiresOn = expiresOn;
 	}
 
-	public String getAuthMode() {
+	public AuthMode getAuthMode() {
 		return authMode;
 	}
 
-	public void setAuthMode(String authMode) {
+	public void setAuthMode(AuthMode authMode) {
 		this.authMode = authMode;
 	}
 
@@ -149,6 +146,14 @@ public class SharingLink {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getNotify() {
+		return notify;
+	}
+
+	public void setNotify(Boolean notify) {
+		this.notify = notify;
 	}
 	
 	public boolean isExpired(DateTime now) {
@@ -167,9 +172,9 @@ public class SharingLink {
 	}
 	
 	public void validate(boolean insert) throws WTException {
-		if(insert && type.equals(TYPE_UPLOAD) && !PathUtils.isFolder(filePath)) throw new WTException("File path must target a directory");
+		if(insert && linkType.equals(LinkType.UPLOAD) && !PathUtils.isFolder(filePath)) throw new WTException("File path must target a directory");
 		if(authMode == null) throw new WTException("Provide a value for authMode");
-		if(authMode.equals(SharingLink.AUTH_MODE_PASSWORD)) {
+		if(authMode.equals(AuthMode.PASSWORD)) {
 			if(StringUtils.isBlank(password)) throw new WTException("Provide a value for password");
 		} else {
 			password = null;
@@ -178,5 +183,63 @@ public class SharingLink {
 	
 	public String relativizePath(String path) {
 		return PathUtils.ensureBeginningSeparator(StringUtils.removeStart(path, getFilePath()));
+	}
+	
+	public static enum LinkType {
+		@SerializedName("D") DOWNLOAD,
+		@SerializedName("U") UPLOAD;
+	}
+	
+	public static enum AuthMode {
+		@SerializedName("N") NONE,
+		@SerializedName("P") PASSWORD;
+	}
+	
+	public static class BuilderForAdd {
+		private final SharingLink obj = new SharingLink();
+		
+		public BuilderForAdd(int storeId, String filePath) {
+			obj.setStoreId(storeId);
+			obj.setFilePath(filePath);
+			permanent();
+			free();
+			silent();
+		}
+		
+		public final BuilderForAdd free() {
+			obj.setAuthMode(AuthMode.NONE);
+			obj.setPassword(null);
+			return this;
+		}
+		
+		public final BuilderForAdd permanent() {
+			obj.setExpiresOn(null);
+			return this;
+		}
+		
+		public final BuilderForAdd silent() {
+			obj.setNotify(false);
+			return this;
+		}
+		
+		public final BuilderForAdd withExpiry(DateTime expiresOn) {
+			obj.setExpiresOn(expiresOn);
+			return this;
+		}
+		
+		public final BuilderForAdd withPassword(String password) {
+			obj.setAuthMode(AuthMode.PASSWORD);
+			obj.setPassword(password);
+			return this;
+		}
+		
+		public final BuilderForAdd withNotification() {
+			obj.setNotify(true);
+			return this;
+		}
+		
+		public final SharingLink build() {
+			return obj;
+		}
 	}
 }
