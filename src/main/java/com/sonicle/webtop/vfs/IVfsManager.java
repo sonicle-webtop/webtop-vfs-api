@@ -40,6 +40,7 @@ import com.sonicle.webtop.vfs.model.StoreShareFolder;
 import com.sonicle.webtop.vfs.model.StoreShareRoot;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -78,6 +79,6 @@ public interface IVfsManager {
 	public SharingLink addUploadLink(SharingLink link) throws WTException;
 	public void updateSharingLink(SharingLink link) throws WTException;
 	public void deleteSharingLink(String linkId) throws WTException;
-	public String[] getSharingLinkPublicURLs(SharingLink link);
+	public URI[] getSharingLinkPublicURLs(SharingLink link) throws WTException;
 	public String getSharingLinkEmbedCode(SharingLink link, Locale locale, String dateFormat);
 }
