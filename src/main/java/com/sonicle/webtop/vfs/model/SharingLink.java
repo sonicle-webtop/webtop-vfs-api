@@ -36,6 +36,7 @@ import com.google.gson.annotations.SerializedName;
 import com.sonicle.commons.PathUtils;
 import com.sonicle.webtop.core.sdk.UserProfileId;
 import com.sonicle.webtop.core.sdk.WTException;
+import com.sonicle.webtop.core.sdk.WTRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -171,11 +172,11 @@ public class SharingLink {
 		setUserId(pid.getUser());
 	}
 	
-	public void validate(boolean insert) throws WTException {
-		if(insert && linkType.equals(LinkType.UPLOAD) && !PathUtils.isFolder(filePath)) throw new WTException("File path must target a directory");
-		if(authMode == null) throw new WTException("Provide a value for authMode");
-		if(authMode.equals(AuthMode.PASSWORD)) {
-			if(StringUtils.isBlank(password)) throw new WTException("Provide a value for password");
+	public void validate(boolean silent) {
+		if (!silent && linkType.equals(LinkType.UPLOAD) && !PathUtils.isFolder(filePath)) throw new WTRuntimeException("File path must target a directory");
+		if (!silent && authMode == null) throw new WTRuntimeException("Provide a value for authMode");
+		if (authMode.equals(AuthMode.PASSWORD)) {
+			if (StringUtils.isBlank(password)) throw new WTRuntimeException("Provide a value for password");
 		} else {
 			password = null;
 		}

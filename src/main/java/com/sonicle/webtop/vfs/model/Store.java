@@ -59,10 +59,10 @@ public class Store {
 	private String domainId;
 	private String userId;
 	private Short builtIn;
+	private String provider;
 	private String name;
 	private URI uri;
 	private String parameters;
-	private String provider;
 	
 	public Store() {}
 
@@ -97,6 +97,14 @@ public class Store {
 	public void setBuiltIn(Short builtIn) {
 		this.builtIn = builtIn;
 	}
+	
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 
 	public String getName() {
 		return name;
@@ -122,14 +130,6 @@ public class Store {
 		this.parameters = parameters;
 	}
 	
-	public String getProvider() {
-		return provider;
-	}
-
-	public void setProvider(String provider) {
-		this.provider = provider;
-	}
-	
 	public UserProfileId getProfileId() {
 		return new UserProfileId(getDomainId(), getUserId());
 	}
@@ -141,13 +141,12 @@ public class Store {
 	
 	public static URI buildURI(String scheme, String host, Integer port, String username, String password, String path) throws URISyntaxException {
 		return new VfsURI.Builder()
-				.scheme(scheme)
-				.host(host)
-				.port(port)
-				.username(username)
-				.password(password)
-				.path(path)
-				.build();
+			.scheme(scheme)
+			.host(host)
+			.port(port)
+			.username(username)
+			.password(password)
+			.path(path)
+			.build();
 	}
-	
 }
