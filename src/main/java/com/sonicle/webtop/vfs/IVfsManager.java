@@ -41,6 +41,7 @@ import com.sonicle.webtop.vfs.model.StoreShareRoot;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,6 +73,7 @@ public interface IVfsManager {
 	public String addStoreFile(StoreFileType fileType, int storeId, String parentPath, String name) throws FileSystemException, WTException;
 	public String renameStoreFile(int storeId, String path, String newName) throws FileSystemException, WTException;
 	public void deleteStoreFile(int storeId, String path) throws FileSystemException, WTException;
+	public void deleteStoreFile(int storeId, Collection<String> paths) throws FileSystemException, WTException;
 	public LinkedHashMap<String, SharingLink> listDownloadLinks(int storeId, String path) throws WTException;
 	public LinkedHashMap<String, SharingLink> listUploadLinks(int storeId, String path) throws WTException;
 	public SharingLink getSharingLink(String linkId) throws WTException;
