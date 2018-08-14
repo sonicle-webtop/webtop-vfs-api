@@ -32,10 +32,10 @@
  */
 package com.sonicle.webtop.vfs;
 
+import com.google.gson.annotations.SerializedName;
 import com.sonicle.webtop.core.sdk.WTException;
 import com.sonicle.webtop.vfs.model.SharingLink;
 import com.sonicle.webtop.vfs.model.Store;
-import com.sonicle.webtop.vfs.model.StoreFileType;
 import com.sonicle.webtop.vfs.model.StoreShareFolder;
 import com.sonicle.webtop.vfs.model.StoreShareRoot;
 import java.io.IOException;
@@ -71,7 +71,8 @@ public interface IVfsManager {
 	public String addStoreFileFromStream(int storeId, String parentPath, String name, InputStream is) throws IOException, FileSystemException, WTException;
 	public String addStoreFileFromStream(int storeId, String parentPath, String name, InputStream is, boolean overwrite) throws IOException, FileSystemException, WTException;
 	public String addStoreFile(StoreFileType fileType, int storeId, String parentPath, String name) throws FileSystemException, WTException;
-	public String renameStoreFile(int storeId, String path, String newName) throws FileSystemException, WTException;
+	public String renameStoreFile(int storeId, String path, String newName) throws FileSystemException, FileOverwriteException, WTException;
+	public String renameStoreFile(int storeId, String path, String newName, boolean overwrite) throws FileSystemException, FileOverwriteException, WTException;
 	public void deleteStoreFile(int storeId, String path) throws FileSystemException, WTException;
 	public void deleteStoreFile(int storeId, Collection<String> paths) throws FileSystemException, WTException;
 	public LinkedHashMap<String, SharingLink> listDownloadLinks(int storeId, String path) throws WTException;
@@ -83,4 +84,21 @@ public interface IVfsManager {
 	public void deleteSharingLink(String linkId) throws WTException;
 	public URI[] getSharingLinkPublicURLs(SharingLink link) throws WTException;
 	public String getSharingLinkEmbedCode(SharingLink link, Locale locale, String dateFormat);
+	
+	public static enum StoreFileType {
+		@SerializedName("file") FILE,
+		@SerializedName("folder") FOLDER,
+		@SerializedName("fileOrFolder") FILE_OR_FOLDER
+	}
+	
+	public static enum StoreFileTemplate {
+		@SerializedName("txt") TEXT_FILE,
+		@SerializedName("html") HTML_FILE,
+		@SerializedName("docx") OOX_DOCUMENT, // MS Word - Office Open XML
+		@SerializedName("xlsx") OOX_SPREADSHEET, // MS Excel - Office Open XML
+		@SerializedName("pptx") OOX_PRESENTATION, // MS PowerPoint - Office Open XML
+		//@SerializedName("odt") ODF_DOCUMENT, // OO Document - OASIS Open Document Format
+		//@SerializedName("ods") ODF_SPREADSHEET, // OO Spreadsheet - OASIS Open Document Format
+		//@SerializedName("odp") ODF_PRESENTATION, // OO Presentation - OASIS Open Document Format
+	}
 }

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 Sonicle S.r.l.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -30,17 +30,29 @@
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
  * display the words "Copyright (C) 2014 Sonicle S.r.l.".
  */
-package com.sonicle.webtop.vfs.model;
+package com.sonicle.webtop.vfs;
+
+import com.sonicle.webtop.core.sdk.WTException;
 
 /**
  *
  * @author malbinola
  */
-public enum StoreFileType {
-	FILE("file"), FOLDER("folder"), FILE_OR_FOLDER("fileOrFolder");
+public class FileOverwriteException extends WTException {
 	
-	private final String value;
-	private StoreFileType(String value) { this.value = value; }
-	@Override
-	public String toString() { return value; }
+	public FileOverwriteException() {
+		super();
+	}
+	
+	public FileOverwriteException(Throwable cause) {
+		super(cause);
+	}
+	
+	public FileOverwriteException(String message, Object... arguments) {
+		super(message, arguments);
+	}
+	
+	public FileOverwriteException(Throwable cause, String message, Object... arguments) {
+		super(cause, message, arguments);
+	}
 }
