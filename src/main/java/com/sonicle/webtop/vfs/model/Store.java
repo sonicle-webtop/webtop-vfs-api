@@ -32,6 +32,8 @@
  */
 package com.sonicle.webtop.vfs.model;
 
+import com.google.gson.annotations.SerializedName;
+import com.sonicle.commons.EnumUtils;
 import com.sonicle.vfs2.VfsURI;
 import com.sonicle.webtop.core.sdk.UserProfileId;
 import java.net.URI;
@@ -45,21 +47,12 @@ public class Store {
 	public static final Short BUILTIN_NO = 0;
 	public static final Short BUILTIN_DOMAINIMAGES = 98;
 	public static final Short BUILTIN_MYDOCUMENTS = 100;
-	public static final String PROVIDER_MYDOCUMENTS = "mydocs";
-	public static final String PROVIDER_DOMAINIMAGES = "images";
-	public static final String PROVIDER_FTP = "ftp";
-	public static final String PROVIDER_DROPBOX = "dropbox";
-	public static final String PROVIDER_GOOGLEDRIVE = "googledrive";
-	public static final String PROVIDER_FILE = "file";
-	public static final String PROVIDER_SMB = "smb";
-	public static final String PROVIDER_WEBDAV = "webdav";
-	public static final String PROVIDER_NEXTCLOUD = "nextcloud";
 	
 	private Integer storeId;
 	private String domainId;
 	private String userId;
 	private Short builtIn;
-	private String provider;
+	private Provider provider;
 	private String name;
 	private URI uri;
 	private String parameters;
@@ -98,11 +91,11 @@ public class Store {
 		this.builtIn = builtIn;
 	}
 	
-	public String getProvider() {
+	public Provider getProvider() {
 		return provider;
 	}
 
-	public void setProvider(String provider) {
+	public void setProvider(Provider provider) {
 		this.provider = provider;
 	}
 
@@ -139,6 +132,23 @@ public class Store {
 		setUserId(pid.getUser());
 	}
 	
+	public boolean isProviderRemote() {
+		return Store.isProviderRemote(getProvider());
+	}
+	
+	public static boolean isProviderRemote(String provider) {
+		return Store.isProviderRemote(EnumUtils.forSerializedName(provider, Provider.class));
+	}
+	
+	public static boolean isProviderRemote(Provider provider) {
+		return Provider.FTP.equals(provider)
+				|| Provider.DROPBOX.equals(provider)
+				|| Provider.GOOGLEDRIVE.equals(provider)
+				|| Provider.SMB.equals(provider)
+				|| Provider.WEBDAV.equals(provider)
+				|| Provider.NEXTCLOUD.equals(provider);
+	}
+	
 	public static URI buildURI(String scheme, String host, Integer port, String username, String password, String path) throws URISyntaxException {
 		return new VfsURI.Builder()
 			.scheme(scheme)
@@ -148,5 +158,17 @@ public class Store {
 			.password(password)
 			.path(path)
 			.build();
+	}
+	
+	public static enum Provider {
+		@SerializedName("mydocs") MYDOCUMENTS,
+		@SerializedName("images") DOMAINIMAGES,
+		@SerializedName("ftp") FTP,
+		@SerializedName("dropbox") DROPBOX,
+		@SerializedName("googledrive") GOOGLEDRIVE,
+		@SerializedName("file") FILE,
+		@SerializedName("smb") SMB,
+		@SerializedName("webdav") WEBDAV,
+		@SerializedName("nextcloud") NEXTCLOUD
 	}
 }
