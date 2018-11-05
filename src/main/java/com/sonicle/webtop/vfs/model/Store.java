@@ -146,6 +146,7 @@ public class Store {
 				|| Provider.GOOGLEDRIVE.equals(provider)
 				|| Provider.SMB.equals(provider)
 				|| Provider.WEBDAV.equals(provider)
+				|| Provider.WEBDAVS.equals(provider)
 				|| Provider.NEXTCLOUD.equals(provider);
 	}
 	
@@ -169,6 +170,7 @@ public class Store {
 		@SerializedName("file") FILE,
 		@SerializedName("smb") SMB,
 		@SerializedName("webdav") WEBDAV,
+		@SerializedName("webdavs") WEBDAVS,
 		@SerializedName("nextcloud") NEXTCLOUD
 	}
 }
