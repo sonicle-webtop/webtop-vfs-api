@@ -10,8 +10,13 @@
 	<parent>
 		<groupId>com.sonicle.webtop</groupId>
 		<artifactId>webtop-superpom-service-api</artifactId>
-		<version>1</version>
+		<version>2</version>
 	</parent>
+	
+	<properties>
+		<!-- WEBTOP: service configuration -->
+		<webtop.service.package>com.sonicle.webtop.vfs</webtop.service.package>
+	</properties>
 	
 	<dependencies>
 		<dependency>
@@ -20,8 +25,4 @@
 			<version>LATEST</version>
 		</dependency>
 	</dependencies>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
 </project>
