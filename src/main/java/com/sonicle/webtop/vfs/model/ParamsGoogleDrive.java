@@ -49,11 +49,11 @@ public class ParamsGoogleDrive {
 	
 	public static ParamsGoogleDrive fromJson(String value) {
 		if(value == null) return null;
-		return JsonResult.gson.fromJson(value, ParamsGoogleDrive.class);
+		return JsonResult.gson().fromJson(value, ParamsGoogleDrive.class);
 	}
 	
 	public static String toJson(ParamsGoogleDrive value) {
 		if(value == null) return null;
-		return JsonResult.gson.toJson(value, ParamsGoogleDrive.class);
+		return JsonResult.gson().toJson(value, ParamsGoogleDrive.class);
 	}
 }

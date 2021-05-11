@@ -48,11 +48,11 @@ public class ParamsDropbox {
 	
 	public static ParamsDropbox fromJson(String value) {
 		if(value == null) return null;
-		return JsonResult.gson.fromJson(value, ParamsDropbox.class);
+		return JsonResult.gson().fromJson(value, ParamsDropbox.class);
 	}
 	
 	public static String toJson(ParamsDropbox value) {
 		if(value == null) return null;
-		return JsonResult.gson.toJson(value, ParamsDropbox.class);
+		return JsonResult.gson().toJson(value, ParamsDropbox.class);
 	}
 }
