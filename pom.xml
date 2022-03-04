@@ -15,6 +15,7 @@
 	
 	<properties>
 		<!-- WEBTOP: service configuration -->
+		<webtop.service.baseArtifact>webtop-vfs</webtop.service.baseArtifact>
 		<webtop.service.package>com.sonicle.webtop.vfs</webtop.service.package>
 	</properties>
 	
