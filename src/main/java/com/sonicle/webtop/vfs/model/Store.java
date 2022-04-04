@@ -45,6 +45,7 @@ import java.net.URISyntaxException;
  */
 public class Store {
 	public static final Short BUILTIN_NO = 0;
+	public static final Short BUILTIN_VOLATILE = 97;
 	public static final Short BUILTIN_DOMAINIMAGES = 98;
 	public static final Short BUILTIN_MYDOCUMENTS = 100;
 	

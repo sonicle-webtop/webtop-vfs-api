@@ -61,6 +61,7 @@ public interface IVfsManager {
 	public Integer getMyDocumentsStoreId() throws WTException;
 	public Store getStore(int storeId) throws WTException;
 	public Store addStore(Store item) throws WTException;
+	public Store addBuiltInVolatileStore(Store item) throws WTException;
 	public Store addBuiltInStoreMyDocuments() throws WTException;
 	public Store addBuiltInStoreDomainImages(String domainId) throws WTException;
 	public Store updateStore(Store item) throws WTException;
