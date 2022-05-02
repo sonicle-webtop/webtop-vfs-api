@@ -92,6 +92,10 @@ public class Store {
 		this.builtIn = builtIn;
 	}
 	
+	public boolean isVolatile() {
+		return builtIn!=null && builtIn.equals(BUILTIN_VOLATILE);
+	}
+	
 	public Provider getProvider() {
 		return provider;
 	}
