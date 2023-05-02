@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 Sonicle S.r.l.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,22 +32,22 @@
  */
 package com.sonicle.webtop.vfs.model;
 
-import com.sonicle.webtop.core.model.IncomingShareRoot;
-import com.sonicle.webtop.core.model.SharePermsRoot;
-import com.sonicle.webtop.core.model.ShareRoot;
-import com.sonicle.webtop.core.sdk.UserProfileId;
+import com.sonicle.webtop.core.app.model.FolderShare;
+import com.sonicle.webtop.core.app.model.ShareOrigin;
 
 /**
  *
  * @author malbinola
  */
-public class StoreShareRoot extends ShareRoot {
+public class StoreFSOrigin extends ShareOrigin {
+	protected final FolderShare.Permissions wildcardPermissions;
 	
-	public StoreShareRoot(String shareId, SharePermsRoot perms, UserProfileId ownerProfileId, String description) {
-		super(shareId, perms, ownerProfileId, description);
+	public StoreFSOrigin(ShareOrigin origin, FolderShare.Permissions wildcardPermissions) {
+		super(origin);
+		this.wildcardPermissions = wildcardPermissions;
 	}
 	
-	public StoreShareRoot(IncomingShareRoot share, SharePermsRoot perms) {
-		super(share, perms);
+	public FolderShare.Permissions getWildcardPermissions() {
+		return wildcardPermissions;
 	}
 }

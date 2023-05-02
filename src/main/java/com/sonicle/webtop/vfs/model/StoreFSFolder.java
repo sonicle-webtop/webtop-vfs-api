@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 Sonicle S.r.l.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,28 +32,26 @@
  */
 package com.sonicle.webtop.vfs.model;
 
-import com.sonicle.webtop.core.model.ShareFolder;
-import com.sonicle.webtop.core.model.SharePermsFolder;
-import com.sonicle.webtop.core.model.SharePermsElements;
-import com.sonicle.webtop.core.sdk.UserProfileId;
+import com.sonicle.webtop.core.app.model.FolderShare;
+import com.sonicle.webtop.core.app.model.FolderShareFolder;
 
 /**
  *
  * @author malbinola
  */
-public class StoreShareFolder extends ShareFolder {
-	protected final UserProfileId ownerProfileId;
+public class StoreFSFolder extends FolderShareFolder<Integer> {
+	private final Store store;
 	
-	public StoreShareFolder(String shareId, UserProfileId ownerProfileId, SharePermsFolder perms, SharePermsElements elsPerms, Store store) {
-		super(shareId, perms, elsPerms, store);
-		this.ownerProfileId = ownerProfileId;
+	public StoreFSFolder(int storeId, FolderShare.Permissions permissions, Store store) {
+		this(storeId, store.getName(), permissions, store);
 	}
 	
-	public UserProfileId getOwnerProfileId() {
-		return ownerProfileId;
+	public StoreFSFolder(int storeId, String displayName, FolderShare.Permissions permissions, Store store) {
+		super(storeId, displayName, permissions);
+		this.store = store;
 	}
-
+	
 	public Store getStore() {
-		return (Store)object;
+		return store;
 	}
 }

@@ -33,19 +33,21 @@
 package com.sonicle.webtop.vfs;
 
 import com.google.gson.annotations.SerializedName;
+import com.sonicle.webtop.core.app.model.FolderSharing;
+import com.sonicle.webtop.core.sdk.UserProfileId;
 import com.sonicle.webtop.core.sdk.WTException;
 import com.sonicle.webtop.vfs.model.SharingLink;
 import com.sonicle.webtop.vfs.model.Store;
-import com.sonicle.webtop.vfs.model.StoreShareFolder;
-import com.sonicle.webtop.vfs.model.StoreShareRoot;
+import com.sonicle.webtop.vfs.model.StoreFSFolder;
+import com.sonicle.webtop.vfs.model.StoreFSOrigin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemException;
 
@@ -55,12 +57,24 @@ import org.apache.commons.vfs2.FileSystemException;
  */
 public interface IVfsManager {
 	
-	public List<StoreShareRoot> listIncomingStoreRoots() throws WTException;
-	public HashMap<Integer, StoreShareFolder> listIncomingStoreFolders(String rootShareId) throws WTException;
-	public List<Store> listStores() throws WTException;
+	public Set<FolderSharing.SubjectConfiguration> getFolderShareConfigurations(final UserProfileId originProfileId, final FolderSharing.Scope scope) throws WTException;
+	public void updateFolderShareConfigurations(final UserProfileId originProfileId, final FolderSharing.Scope scope, final Set<FolderSharing.SubjectConfiguration> configurations) throws WTException;
+	public Map<UserProfileId, StoreFSOrigin> listIncomingStoreOrigins() throws WTException;
+	public StoreFSOrigin getIncomingStoreOriginByFolderId(final int storeId) throws WTException;
+	public Map<Integer, StoreFSFolder> listIncomingStoreFolders(final StoreFSOrigin origin) throws WTException;
+	public Map<Integer, StoreFSFolder> listIncomingStoreFolders(final UserProfileId originProfileId) throws WTException;
+	public Set<Integer> listMyStoreIds() throws WTException;
+	public Set<Integer> listIncomingStoreIds() throws WTException;
+	public Set<Integer> listIncomingStoreIds(final UserProfileId owner) throws WTException;
+	public Set<Integer> listAllStoreIds() throws WTException;
 	public Integer getMyDocumentsStoreId() throws WTException;
-	public Store getStore(int storeId) throws WTException;
-	public Store addStore(Store item) throws WTException;
+	public Map<Integer, Store> listMyStores() throws WTException;
+	public Map<Integer, Store> listIncomingStores() throws WTException;
+	public Map<Integer, Store> listIncomingStores(final UserProfileId owner) throws WTException;
+	public UserProfileId getStoreOwner(final int storeId) throws WTException;
+	public boolean existStore(final int storeId) throws WTException;
+	public Store getStore(final int storeId) throws WTException;
+	public Store addStore(final Store item) throws WTException;
 	public Store addBuiltInVolatileStore(Store item) throws WTException;
 	public Store addBuiltInStoreMyDocuments() throws WTException;
 	public Store addBuiltInStoreDomainImages(String domainId) throws WTException;
